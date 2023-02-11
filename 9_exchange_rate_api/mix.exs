@@ -14,7 +14,12 @@ defmodule ExchangeRateApi9.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications:
+        extra_applications(Mix.env(), [
+          :logger,
+          :con_cache,
+          :httpoison
+        ]),
       mod: {ExchangeRate, []}
     ]
   end
@@ -22,8 +27,14 @@ defmodule ExchangeRateApi9.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:con_cache, "~> 1.0.0"},
       {:plug_cowboy, "~> 2.6.0"},
-      {:poison, "~> 5.0.0"}
+      {:poison, "~> 5.0.0"},
+      {:lettuce, "~> 0.2.0", only: :dev},
+      {:httpoison, "~> 2.0.0"}
     ]
   end
+
+  defp extra_applications(:dev, default), do: default ++ [:lettuce]
+  defp extra_applications(_env, default), do: default
 end
