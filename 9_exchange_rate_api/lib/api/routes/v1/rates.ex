@@ -13,14 +13,16 @@ defmodule ExchangeRate.Api.Routes.V1.Rates do
   end
 
   get "/:currency" do
-    case Cache.get(conn.params["currency"]) do
-      nil ->
-        conn
-        |> Util.respond({:error, "Currency not found"})
+    currencies = conn.params["currency"] |> String.split(",")
 
-      rate ->
-        conn
-        |> Util.respond({:ok, %{currency: rate}})
-    end
+    rates =
+      Enum.map(currencies, fn currency ->
+        {currency, Cache.get(currency)}
+      end)
+      |> Enum.into(%{})
+      |> Map.new(fn {k, v} -> {String.downcase(k), v} end)
+      |> Map.filter(fn {_k, v} -> v != nil end)
+
+    conn |> Util.respond({:ok, rates})
   end
 end

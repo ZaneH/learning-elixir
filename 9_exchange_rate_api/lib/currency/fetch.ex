@@ -1,5 +1,3 @@
-require Logger
-
 defmodule ExchangeRate.Currency.Fetch do
   @moduledoc """
   The Fetch module is responsible for fetching currency data from the API.
@@ -7,7 +5,6 @@ defmodule ExchangeRate.Currency.Fetch do
 
   @spec fetch_rates_map :: {:ok, any} | {:error, String.t()}
   def fetch_rates_map do
-    Logger.info("Fetching currency data")
     {:ok, response} = HTTPoison.get("https://open.er-api.com/v6/latest/USD")
 
     case response do
