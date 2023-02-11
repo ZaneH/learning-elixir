@@ -15,14 +15,19 @@ defmodule ExchangeRate.Api.Routes.V1.Rates do
   get "/:currency" do
     currencies = conn.params["currency"] |> String.split(",")
 
-    rates =
-      Enum.map(currencies, fn currency ->
-        {currency, Cache.get(currency)}
-      end)
-      |> Enum.into(%{})
-      |> Map.new(fn {k, v} -> {String.downcase(k), v} end)
-      |> Map.filter(fn {_k, v} -> v != nil end)
+    try do
+      rates =
+        Enum.map(currencies, fn currency ->
+          {currency, Cache.get(currency)}
+        end)
+        |> Enum.into(%{})
+        |> Map.new(fn {k, v} -> {String.downcase(k), v} end)
+        |> Map.filter(fn {_k, v} -> v != nil end)
 
-    conn |> Util.respond({:ok, rates})
+      conn |> Util.respond({:ok, rates})
+    rescue
+      _ ->
+        conn |> Util.respond({:error, "Unable to fetch currency data"})
+    end
   end
 end
