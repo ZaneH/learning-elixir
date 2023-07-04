@@ -1,21 +1,15 @@
 # Two
 
-**TODO: Add description**
+For [Advent of Code '22](https://adventofcode.com/2022).
 
-## Installation
+## First Solution
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `two` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:two, "~> 0.1.0"}
-  ]
-end
+```bash
+iex(1)> Two.play_input
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/two>.
+## Second Solution
 
+```bash
+iex(2)> Two.play_input_alt
+```
