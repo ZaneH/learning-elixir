@@ -26,6 +26,14 @@ defmodule Two do
     end
   end
 
+  def get_losing_hand("R"), do: "S"
+  def get_losing_hand("P"), do: "R"
+  def get_losing_hand("S"), do: "P"
+
+  def get_winning_hand("R"), do: "P"
+  def get_winning_hand("P"), do: "S"
+  def get_winning_hand("S"), do: "R"
+
   def play_hand_alt(hand_row) do
     case String.split(hand_row, " ") do
       [opp, instruction] ->
@@ -33,13 +41,7 @@ defmodule Two do
 
         case instruction do
           "X" ->
-            me_hand =
-              case opp_hand do
-                "R" -> "S"
-                "P" -> "R"
-                "S" -> "P"
-              end
-
+            me_hand = get_losing_hand(opp_hand)
             calculate_hand_score(opp_hand, me_hand)
 
           "Y" ->
@@ -47,13 +49,7 @@ defmodule Two do
             calculate_hand_score(opp_hand, me_hand)
 
           "Z" ->
-            me_hand =
-              case opp_hand do
-                "R" -> "P"
-                "P" -> "S"
-                "S" -> "R"
-              end
-
+            me_hand = get_winning_hand(opp_hand)
             calculate_hand_score(opp_hand, me_hand)
         end
 
