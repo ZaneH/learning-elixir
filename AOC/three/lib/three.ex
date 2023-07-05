@@ -2,8 +2,8 @@ defmodule Three do
   def read_file do
     File.read!("./input.txt")
     |> to_string()
+    |> String.trim()
     |> String.split("\n")
-    |> Enum.filter(fn f -> f != "" end)
   end
 
   def solve do

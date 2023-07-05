@@ -61,6 +61,7 @@ defmodule Two do
 
   def play_input do
     read_file()
+    |> String.trim()
     |> String.split("\n")
     |> Enum.map(&play_hand(&1))
     |> Enum.sum()
@@ -68,6 +69,7 @@ defmodule Two do
 
   def play_input_alt do
     read_file()
+    |> String.trim()
     |> String.split("\n")
     |> Enum.map(&play_hand_alt(&1))
     |> Enum.sum()
