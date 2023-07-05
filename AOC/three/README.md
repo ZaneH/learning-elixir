@@ -1,21 +1,15 @@
 # Three
 
-**TODO: Add description**
+For [Advent of Code '22](https://adventofcode.com/2022).
 
-## Installation
+## First Solution
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `three` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:three, "~> 0.1.0"}
-  ]
-end
+```bash
+iex(1)> Three.solve
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/three>.
+## Second Solution
 
+```bash
+iex(2)> Three.solve(:second)
+```

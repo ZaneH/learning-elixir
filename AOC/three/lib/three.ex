@@ -4,8 +4,23 @@ defmodule Three do
     |> to_string()
     |> String.split("\n")
     |> Enum.filter(fn f -> f != "" end)
+  end
+
+  def solve do
+    read_file()
     |> Enum.map(fn items ->
       split_rucksack(items)
+      |> find_shared_item()
+      |> convert_to_priorities()
+    end)
+    |> Enum.sum()
+  end
+
+  def solve(:second) do
+    read_file()
+    |> Enum.chunk_every(3, 3)
+    |> Enum.map(fn i ->
+      i
       |> find_shared_item()
       |> convert_to_priorities()
     end)
@@ -24,6 +39,18 @@ defmodule Three do
     String.graphemes(comp_one)
     |> Enum.filter(fn c ->
       String.contains?(comp_two, c)
+    end)
+  end
+
+  def find_shared_item([head | string_array]) do
+    head
+    |> String.graphemes()
+    |> Enum.filter(fn c ->
+      length(
+        Enum.filter(string_array, fn str ->
+          String.contains?(str, c)
+        end)
+      ) == length(string_array)
     end)
   end
 
