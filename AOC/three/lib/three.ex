@@ -56,11 +56,6 @@ defmodule Three do
 
   def convert_to_priorities([head | _]) do
     dec = :binary.decode_unsigned(head)
-
-    if dec >= 97 do
-      dec - 96
-    else
-      dec - 38
-    end
+    if dec >= 97, do: dec - 96, else: dec - 38
   end
 end
